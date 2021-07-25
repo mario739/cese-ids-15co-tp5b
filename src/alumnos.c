@@ -25,24 +25,26 @@
 
 /*=====[Definitions of public global variables]==============================*/
 
+//!Estructura de datos con la informacion del alumno Esteban Volentini
 static const struct alumno_s ESTEBAN_VOLENTINI = {
     .apellidos = "VOLENTINI",
     .nombres = "Esteban Daniel",
     .documento = "23.517.968",
 };
-
+//!Estructura de datos con la informacion del alumno Alejandro Permingeat
 static const struct alumno_s ALEJANDRO_PERMINGEAT = {
     .apellidos = "PERMINGEAT",
     .nombres = "Alejandro",
     .documento = "99.999.999",
 };
+//!Estructura de datos con la informacion del alumno Mario Aguilar
 static const struct alumno_s MARIO_AGUILAR = {
     .apellidos = "AGUILAR",
     .nombres = "Mario",
     .documento = "7225107",
 };
 
-
+//!Crea una constante de tipo alumno_t con el contenido de los datos de los alumnos
 const alumno_t ALUMNOS[] = {
     &ESTEBAN_VOLENTINI,
     &ALEJANDRO_PERMINGEAT,
@@ -59,6 +61,17 @@ const int CANTIDAD_ALUMNOS = (sizeof(ALUMNOS) / sizeof(alumno_t));
 
 /*=====[Implementations of interrupt functions]==============================*/
 
+/**
+ * @brief Serializa los datos de un alumno en formato JSON 
+ *        
+ *Esta funcion recibe un puntero a una estructura con lo datos de un  
+ *alumno y devuelve los datos de esa estructura en una cadena JSON
+ * @param cadena    Cadena de caracteres para serializar los datos 
+ * @param espacio   Tamaño de la cadena de caracteres de resultado  
+ * @param alumno    Estructura con los datos del aluno a serializar 
+ * @return true     La serializacion de los datos se realizo correctamente 
+ * @return false    Nose pudo serializar los datos del alumno
+ */
 bool SerializarAlumno(char * cadena, size_t espacio, const alumno_t alumno) {
     int resultado;
     const char FORMATO[] = "{"
@@ -73,6 +86,15 @@ bool SerializarAlumno(char * cadena, size_t espacio, const alumno_t alumno) {
     return (resultado >= 0);
 }
 
+/**
+ * @brief Serializa los datos de los alumnos en formato JSON 
+ *
+ *Esta funcion devuelve los datos de los alumnos en una cadena JSON
+ * @param cadena    Cadena de caracteres para serializar los datos
+ * @param espacio   Tamaño de la cadena de caracteres de resultado
+ * @return true     La serializacion de los datos se realizo correctamente 
+ * @return false    Nose pudo serializar los datos del alumno
+ */
 bool SerializarAlumnos(char * cadena, size_t espacio) {
     static const int  cantidad = sizeof(ALUMNOS) / sizeof(alumno_t);
     int posicion = snprintf(cadena, espacio, "[\r\n  ");
